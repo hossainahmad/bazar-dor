@@ -23,7 +23,6 @@ export default async function CategoriesPage() {
   return (
     <main className="bg-[#f4f6f3] min-h-screen pb-16 pt-6">
       <div className="max-w-6xl mx-auto px-4 space-y-6">
-        {/* Header Section */}
         <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-100 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800">
@@ -38,7 +37,6 @@ export default async function CategoriesPage() {
           </span>
         </div>
 
-        {/* Categories Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {categories.map((cat) => {
             const slug = cat.slug || cat.id;
@@ -52,17 +50,14 @@ export default async function CategoriesPage() {
                 href={`/products?category=${slug}`}
                 className="group bg-white rounded-2xl p-5 border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all flex flex-col items-center text-center relative overflow-hidden"
               >
-                {/* Icon Container */}
                 <div className="w-16 h-16 rounded-2xl bg-slate-50 group-hover:bg-emerald-50 group-hover:scale-105 transition-all flex items-center justify-center text-3xl mb-3 shrink-0">
                   {icon}
                 </div>
 
-                {/* Name */}
                 <h3 className="font-bold text-slate-800 group-hover:text-emerald-700 text-sm transition-colors leading-snug">
                   {name}
                 </h3>
 
-                {/* Product Count Badge if available */}
                 {count !== undefined && (
                   <p className="text-[11px] text-slate-400 mt-1 font-medium">
                     {count} টি পণ্য
@@ -72,8 +67,6 @@ export default async function CategoriesPage() {
             );
           })}
         </div>
-
-        {/* Empty State Fallback */}
         {categories.length === 0 && (
           <div className="bg-white rounded-3xl p-12 text-center border border-slate-100">
             <p className="text-slate-400 text-sm">কোনো ক্যাটাগরি পাওয়া যায়নি</p>
