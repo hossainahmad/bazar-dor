@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
+import Ticker from "./Ticker";
 
 export default function Navbar({ user, onSignOut }) {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -132,7 +133,7 @@ export default function Navbar({ user, onSignOut }) {
                       }`}
                     >
                       <span>{cat.icon || "📦"}</span>
-                      <span className="font-bold text-[13px]">
+                      <span className="font-bold text-[15px]">
                         {cat.nameBn}
                       </span>
                     </Link>
@@ -141,6 +142,7 @@ export default function Navbar({ user, onSignOut }) {
               })}
         </ul>
       </nav>
+      <Ticker></Ticker>
     </header>
   );
 }
