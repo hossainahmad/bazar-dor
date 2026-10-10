@@ -6,7 +6,7 @@ import { connection } from "next/server";
 async function getCategories() {
   try {
     const res = await fetch(
-      "https://api.api-store.workers.dev/api/bazardor/categories",
+      "https://api.abcz.workers.dev/api/bazardor/categories",
       {
         cache: "no-store",
       },

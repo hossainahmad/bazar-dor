@@ -172,7 +172,7 @@ function SignInForm() {
 
 export default function LoginPage() {
   return (
-    <main className="bg-[#f2f5f1] min-h-screen py-12 px-4 flex items-center justify-center">
+    <main className="bg-[#f2f5f1] min-h-screen px-4 pt-6 pb-12 flex items-start justify-center sm:pt-8">
       <Suspense
         fallback={
           <div className="w-full max-w-md h-80 rounded-2xl bg-white animate-pulse" />

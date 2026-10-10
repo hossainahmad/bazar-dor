@@ -23,7 +23,7 @@ export default async function HeroBanner() {
 
         <div>
           <Link
-            href="/products"
+            href="#সব-পণ্য"
             className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-all shadow-sm hover:shadow active:scale-95"
           >
             সব পণ্য দেখুন

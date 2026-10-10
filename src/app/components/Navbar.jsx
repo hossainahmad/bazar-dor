@@ -28,7 +28,7 @@ export default function Navbar() {
     async function fetchCategories() {
       try {
         const res = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/categories",
+          "https://api.abcz.workers.dev/api/bazardor/categories",
         );
         const data = await res.json();
         setCategories(Array.isArray(data) ? data : data.categories || []);

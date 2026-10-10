@@ -64,7 +64,7 @@ export default function SocialAuthButtons({
             type="button"
             onClick={() => handleSocialSignIn(id)}
             disabled={pendingProvider !== null}
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:px-4"
           >
             <Icon
               aria-hidden="true"
@@ -72,7 +72,7 @@ export default function SocialAuthButtons({
                 id === "github" ? "text-slate-900" : ""
               }`}
             />
-            <span>
+            <span className="whitespace-nowrap leading-none">
               {pendingProvider === id
                 ? `${label} দিয়ে সংযোগ হচ্ছে...`
                 : `${label} দিয়ে চালিয়ে যান`}

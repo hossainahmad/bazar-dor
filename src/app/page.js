@@ -20,7 +20,7 @@ async function getAllProducts() {
   try {
     const fetchPromises = categories.map((cat) =>
       fetch(
-        `https://api.api-store.workers.dev/api/bazardor/products?category=${cat}`,
+        `https://api.abcz.workers.dev/api/bazardor/products?category=${cat}`,
         {
           cache: "no-store",
         },
@@ -169,7 +169,7 @@ async function HomePageContent() {
         )}
 
         {/*All Products*/}
-        <section className="space-y-4">
+        <section id="সব-পণ্য" className="scroll-mt-40 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 pb-3">
             <div>
               <h2 className="text-2xl font-extrabold text-slate-800">

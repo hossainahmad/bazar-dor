@@ -11,7 +11,7 @@ export default function Ticker() {
     async function fetchTickerProducts() {
       try {
         const res = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/products",
+          "https://api.abcz.workers.dev/api/bazardor/products",
         );
         const data = await res.json();
         const productsList = Array.isArray(data) ? data : data.products || [];

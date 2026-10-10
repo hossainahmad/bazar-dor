@@ -5,9 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ProductCard from "../components/ProductCard";
 
-const PRODUCTS_API = "https://api.api-store.workers.dev/api/bazardor/products";
-const CATEGORIES_API =
-  "https://api.api-store.workers.dev/api/bazardor/categories";
+const PRODUCTS_API = "https://api.abcz.workers.dev/api/bazardor/products";
+const CATEGORIES_API = "https://api.abcz.workers.dev/api/bazardor/categories";
 const BENGALI_DIGITS = "০১২৩৪৫৬৭৮৯";
 
 function getNumericPrice(product) {

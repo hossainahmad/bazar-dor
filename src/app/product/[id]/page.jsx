@@ -8,7 +8,7 @@ import { auth, connectMongo } from "@/lib/auth";
 async function getProductData(slug) {
   try {
     const resId = await fetch(
-      `https://api.api-store.workers.dev/api/bazardor/products?id=${slug}`,
+      `https://api.abcz.workers.dev/api/bazardor/products?id=${slug}`,
       {
         cache: "no-store",
       },
@@ -40,7 +40,7 @@ async function getProductData(slug) {
   for (const cat of categories) {
     try {
       const res = await fetch(
-        `https://api.api-store.workers.dev/api/bazardor/products?category=${cat}`,
+        `https://api.abcz.workers.dev/api/bazardor/products?category=${cat}`,
         {
           cache: "no-store",
         },
