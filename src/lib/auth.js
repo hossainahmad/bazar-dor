@@ -35,6 +35,21 @@ export function connectMongo() {
 
 const database = mongoClient.db();
 const secret = process.env.BETTER_AUTH_SECRET;
+const socialProviders = {};
+
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  socialProviders.google = {
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  };
+}
+
+if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+  socialProviders.github = {
+    clientId: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  };
+}
 
 if (process.env.NODE_ENV === "production") {
   if (!process.env.MONGODB_URI) {
@@ -52,6 +67,7 @@ export const auth = betterAuth({
   database: mongodbAdapter(database, { client: mongoClient }),
   baseURL,
   secret: secret || "development-only-secret-do-not-use-in-production-32",
+  socialProviders,
   emailAndPassword: {
     enabled: true,
     autoSignIn: false,

@@ -1,4 +1,3 @@
-// src/app/product/[slug]/page.jsx
 import { Suspense } from "react";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
@@ -90,7 +89,6 @@ async function ProductDetailContent({ params }) {
     redirect(`/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`);
   }
 
-  // ডাটা পার্সিং
   const name = product.nameBn || product.name || "পণ্য";
   const unit = product.unit === "kg" ? "কেজি" : product.unit || "কেজি";
   const categoryName =

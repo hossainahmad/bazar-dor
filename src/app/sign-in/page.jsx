@@ -5,11 +5,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import SocialAuthButtons from "../components/SocialAuthButtons";
 
 function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
+  const socialResult = searchParams.get("socialResult");
   const redirectTo =
     callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//")
       ? callbackUrl
@@ -21,7 +23,7 @@ function SignInForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (callbackUrl) {
+    if (callbackUrl && socialResult !== "error") {
       toast.info(
         callbackUrl.startsWith("/profile")
           ? "প্রোফাইল দেখতে আগে সাইন ইন করুন।"
@@ -31,7 +33,7 @@ function SignInForm() {
         },
       );
     }
-  }, [callbackUrl]);
+  }, [callbackUrl, socialResult]);
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -135,6 +137,14 @@ function SignInForm() {
             {isSubmitting ? "যাচাই হচ্ছে..." : "সাইন ইন"}
           </button>
         </form>
+        <SocialAuthButtons
+          callbackURL={redirectTo}
+          errorURL={
+            callbackUrl
+              ? `/sign-in?callbackUrl=${encodeURIComponent(redirectTo)}&socialResult=error`
+              : "/sign-in?socialResult=error"
+          }
+        />
         {/* Footer */}
         <p className="text-center text-xs text-slate-600 font-medium pt-2">
           অ্যাকাউন্ট নেই?{" "}

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import SocialAuthButtons from "../components/SocialAuthButtons";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -183,6 +184,8 @@ export default function SignUpPage() {
               {isSubmitting ? "তৈরি হচ্ছে..." : "সাইন আপ"}
             </button>
           </form>
+
+          <SocialAuthButtons callbackURL="/" errorURL="/sign-up" />
 
           <p className="text-center text-xs text-slate-600 font-medium pt-6">
             আগে থেকেই অ্যাকাউন্ট আছে?{" "}
