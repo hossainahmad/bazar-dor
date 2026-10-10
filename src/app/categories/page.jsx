@@ -1,5 +1,7 @@
 // src/app/categories/page.jsx
+import { Suspense } from "react";
 import Link from "next/link";
+import { connection } from "next/server";
 
 async function getCategories() {
   try {
@@ -17,7 +19,26 @@ async function getCategories() {
   }
 }
 
-export default async function CategoriesPage() {
+function CategoriesSkeleton() {
+  return (
+    <main className="bg-[#f4f6f3] min-h-screen pb-16 pt-6">
+      <div className="max-w-6xl mx-auto px-4 space-y-6" role="status">
+        <div className="h-28 rounded-3xl border border-slate-100 bg-white animate-pulse" />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {Array.from({ length: 12 }).map((_, index) => (
+            <div
+              key={index}
+              className="h-36 rounded-2xl border border-slate-100 bg-white animate-pulse"
+            />
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+async function CategoriesContent() {
+  await connection();
   const categories = await getCategories();
 
   return (
@@ -74,5 +95,13 @@ export default async function CategoriesPage() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function CategoriesPage() {
+  return (
+    <Suspense fallback={<CategoriesSkeleton />}>
+      <CategoriesContent />
+    </Suspense>
   );
 }

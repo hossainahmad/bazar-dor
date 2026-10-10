@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { io } from "next/cache";
 
-export default function HeroBanner() {
+export default async function HeroBanner() {
+  await io();
   const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
   });

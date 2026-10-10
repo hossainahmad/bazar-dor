@@ -1,9 +1,15 @@
+// src/app/product/[slug]/page.jsx
+import { Suspense } from "react";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
+import { connection } from "next/server";
 import Link from "next/link";
+import { auth, connectMongo } from "@/lib/auth";
 
-async function getProductData(id) {
+async function getProductData(slug) {
   try {
     const resId = await fetch(
-      `https://api.api-store.workers.dev/api/bazardor/products?id=${id}`,
+      `https://api.api-store.workers.dev/api/bazardor/products?id=${slug}`,
       {
         cache: "no-store",
       },
@@ -11,25 +17,25 @@ async function getProductData(id) {
     if (resId.ok) {
       const data = await resId.json();
       const product = Array.isArray(data)
-        ? data.find((p) => String(p.id) === String(id) || p.slug === id)
+        ? data.find((p) => String(p.id) === String(slug) || p.slug === slug)
         : data.product || data;
       if (product && (product.id || product.name || product.nameBn)) {
         return product;
       }
     }
   } catch (e) {
-    console.error("ID fetch failed, falling back:", e);
+    console.error("Fetch failed:", e);
   }
 
-  //  Fallback: Search across common categories
+  // Fallback: search through categories
   const categories = [
     "chal",
     "dal",
-    "oil",
+    "tel",
     "sobji",
     "mach",
-    "mangso",
-    "dim-dudh",
+    "mangsho",
+    "dim-dui",
     "mosla",
   ];
   for (const cat of categories) {
@@ -44,33 +50,47 @@ async function getProductData(id) {
         const items = await res.json();
         const list = Array.isArray(items) ? items : items.products || [];
         const found = list.find(
-          (p) => String(p.id) === String(id) || p.slug === id,
+          (p) => String(p.id) === String(slug) || p.slug === slug,
         );
         if (found) return found;
       }
-    } catch (err) {
-      // continue search
-    }
+    } catch (err) {}
   }
 
   return null;
 }
 
-export default async function ProductDetailPage({ params }) {
+function ProductDetailSkeleton() {
+  return (
+    <main className="bg-[#f4f6f3] min-h-screen py-6">
+      <div
+        aria-hidden="true"
+        className="max-w-5xl mx-auto px-4 space-y-6 animate-pulse"
+      >
+        <div className="h-5 w-48 rounded bg-white" />
+        <div className="h-40 rounded-2xl bg-white" />
+        <div className="h-64 rounded-3xl bg-white" />
+      </div>
+    </main>
+  );
+}
+
+async function ProductDetailContent({ params }) {
+  await connection();
   const resolvedParams = await params;
-  const id = resolvedParams?.id;
+  const slug = resolvedParams?.slug || resolvedParams?.id;
 
-  const product = await getProductData(id);
+  const product = await getProductData(slug);
+  if (!product) notFound();
 
-  if (!product) {
-    return (
-      <main className="bg-[#f4f6f3] min-h-screen py-12 text-center text-slate-500">
-        পণ্যটি পাওয়া যায়নি।
-      </main>
-    );
+  await connectMongo();
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) {
+    const callbackUrl = `/product/${encodeURIComponent(slug)}`;
+    redirect(`/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`);
   }
 
-  // Basic Product details parsing
+  // ডাটা পার্সিং
   const name = product.nameBn || product.name || "পণ্য";
   const unit = product.unit === "kg" ? "কেজি" : product.unit || "কেজি";
   const categoryName =
@@ -88,7 +108,6 @@ export default async function ProductDetailPage({ params }) {
   const isUp = dir === "up";
   const isDown = dir === "down";
 
-  // Markets calculation with fallbacks
   const rawMarkets =
     Array.isArray(product.markets) && product.markets.length > 0
       ? product.markets
@@ -284,5 +303,13 @@ export default async function ProductDetailPage({ params }) {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function ProductDetailPage({ params }) {
+  return (
+    <Suspense fallback={<ProductDetailSkeleton />}>
+      <ProductDetailContent params={params} />
+    </Suspense>
   );
 }

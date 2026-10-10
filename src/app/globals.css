@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 @theme {
   --animate-marquee: marquee 80s linear infinite;
 

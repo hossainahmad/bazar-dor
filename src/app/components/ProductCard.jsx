@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
   };
   const unitText = unitMap[product.unit] || `প্রতি ${product.unit || "কেজি"}`;
 
-  const icon = product.categoryIcon || product.image || "🛒";
+  const icon = product.image || product.categoryIcon || "🛒";
 
   const dir = product.change?.dir || product.changeType || "flat";
   const pct = product.change?.pct ?? product.changePercentage ?? 0;
