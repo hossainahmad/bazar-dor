@@ -7,6 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Ticker from "./Ticker";
 import { authClient } from "@/lib/auth-client";
+import { CATEGORIES_API } from "@/lib/api";
 
 export default function Navbar() {
   use(io());
@@ -27,9 +28,7 @@ export default function Navbar() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await fetch(
-          "https://api.abcz.workers.dev/api/bazardor/categories",
-        );
+        const res = await fetch(CATEGORIES_API);
         const data = await res.json();
         setCategories(Array.isArray(data) ? data : data.categories || []);
       } catch (err) {

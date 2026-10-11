@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PRODUCTS_API } from "@/lib/api";
 
 export default function Ticker() {
   const [items, setItems] = useState([]);
@@ -10,9 +11,7 @@ export default function Ticker() {
   useEffect(() => {
     async function fetchTickerProducts() {
       try {
-        const res = await fetch(
-          "https://api.abcz.workers.dev/api/bazardor/products",
-        );
+        const res = await fetch(PRODUCTS_API);
         const data = await res.json();
         const productsList = Array.isArray(data) ? data : data.products || [];
         setItems(productsList);

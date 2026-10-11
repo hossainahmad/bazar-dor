@@ -2,15 +2,13 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { connection } from "next/server";
+import { CATEGORIES_API } from "@/lib/api";
 
 async function getCategories() {
   try {
-    const res = await fetch(
-      "https://api.abcz.workers.dev/api/bazardor/categories",
-      {
-        cache: "no-store",
-      },
-    );
+    const res = await fetch(CATEGORIES_API, {
+      cache: "no-store",
+    });
     const data = await res.json();
     return Array.isArray(data) ? data : data.categories || [];
   } catch (err) {

@@ -4,15 +4,13 @@ import { notFound, redirect } from "next/navigation";
 import { connection } from "next/server";
 import Link from "next/link";
 import { auth, connectMongo } from "@/lib/auth";
+import { PRODUCTS_API } from "@/lib/api";
 
 async function getProductData(slug) {
   try {
-    const resId = await fetch(
-      `https://api.abcz.workers.dev/api/bazardor/products?id=${slug}`,
-      {
-        cache: "no-store",
-      },
-    );
+    const resId = await fetch(`${PRODUCTS_API}?id=${slug}`, {
+      cache: "no-store",
+    });
     if (resId.ok) {
       const data = await resId.json();
       const product = Array.isArray(data)
@@ -39,12 +37,9 @@ async function getProductData(slug) {
   ];
   for (const cat of categories) {
     try {
-      const res = await fetch(
-        `https://api.abcz.workers.dev/api/bazardor/products?category=${cat}`,
-        {
-          cache: "no-store",
-        },
-      );
+      const res = await fetch(`${PRODUCTS_API}?category=${cat}`, {
+        cache: "no-store",
+      });
       if (res.ok) {
         const items = await res.json();
         const list = Array.isArray(items) ? items : items.products || [];

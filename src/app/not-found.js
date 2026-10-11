@@ -9,7 +9,7 @@ export default function NotFound() {
           পৃষ্ঠাটি খুঁজে পাওয়া যায়নি
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-500">
-          এই ঠিকানায় কোনো পৃষ্ঠা নেই বা এটি সরিয়ে ফেলা হয়েছে।
+          এই ঠিকানাbয় কোনো পৃষ্ঠা নেই বা এটি সরিয়ে ফেলা হয়েছে।
         </p>
         <Link
           href="/"

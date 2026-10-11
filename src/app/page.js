@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import HeroBanner from "./components/HeroBanner";
 import ProductCard from "./components/ProductCard";
+import { PRODUCTS_API } from "@/lib/api";
 
 // Helper function to fetch products across categories
 async function getAllProducts() {
@@ -19,12 +20,9 @@ async function getAllProducts() {
 
   try {
     const fetchPromises = categories.map((cat) =>
-      fetch(
-        `https://api.abcz.workers.dev/api/bazardor/products?category=${cat}`,
-        {
-          cache: "no-store",
-        },
-      )
+      fetch(`${PRODUCTS_API}?category=${cat}`, {
+        cache: "no-store",
+      })
         .then((res) => (res.ok ? res.json() : []))
         .then((data) => (Array.isArray(data) ? data : data.products || []))
         .catch(() => []),

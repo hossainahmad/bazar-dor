@@ -4,9 +4,8 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import ProductCard from "../components/ProductCard";
+import { CATEGORIES_API, PRODUCTS_API } from "@/lib/api";
 
-const PRODUCTS_API = "https://api.abcz.workers.dev/api/bazardor/products";
-const CATEGORIES_API = "https://api.abcz.workers.dev/api/bazardor/categories";
 const BENGALI_DIGITS = "০১২৩৪৫৬৭৮৯";
 
 function getNumericPrice(product) {
